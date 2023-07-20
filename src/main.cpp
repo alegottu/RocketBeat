@@ -60,16 +60,16 @@ int main(int argc, char* args[])
         currentTime = newTime;
         accumulator += frameDuration;
 
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                running = false;
+            }
+        }
+
         while (accumulator >= Physics::deltaTime)
         {
-            while (SDL_PollEvent(&event))
-            {
-                if (event.type == SDL_QUIT)
-                {
-                    running = false;
-                }
-            }
-
             accumulator -= Physics::deltaTime;
 
             Physics::fall(rigidbodies, rigidbodyCount);
